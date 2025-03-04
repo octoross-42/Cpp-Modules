@@ -1,28 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PhoneBook.h                                        :+:      :+:    :+:   */
+/*   Contact.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/01 23:33:00 by octoross          #+#    #+#             */
-/*   Updated: 2025/03/01 23:33:00 by octoross         ###   ########.fr       */
+/*   Created: 2025/03/04 01:21:52 by octoross          #+#    #+#             */
+/*   Updated: 2025/03/04 01:21:52 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHONEBOOK_H
-# define PHONEBOOK_H
-
-# include "Contact.hpp"
-
-class PhoneBook
-{
-	public :
-		PhoneBook();
-		addContact();
-		searchContact();
-	private:
-		Contact[8] contacts;
-};
-
-#endif
