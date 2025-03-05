@@ -1,7 +1,7 @@
-NAME = phonebook
+NAME = zombieHorde
 
-SRCS = Contact.cpp \
-		PhoneBook.cpp \
+SRCS = Zombie.cpp \
+		zombieHorde.cpp \
 		main.cpp
 
 OBJS = ${SRCS:.cpp=.o}
@@ -12,7 +12,7 @@ CFLAGS =  -Wall -Wextra -Werror -std=c++98
 all: $(NAME)
 
 %.o: %.cpp
-	$(CC) $(CFLAGS) -Iinclude -c $< -o ${<:.cpp=.o}	
+	$(CC) $(CFLAGS) -I./ -c $< -o ${<:.cpp=.o}	
 
 $(NAME): $(OBJS)
 	$(CC) $(OBJS) -o $(NAME)
