@@ -1,17 +1,26 @@
-NAME = megaphone
+NAME = account
 
-SRC = megaphone.cpp
+SRCS = Account.cpp \
+		tests.cpp
 
-CC = c++ -Wall -Wextra -Werror -std=c++98
+OBJS = ${SRCS:.cpp=.o}
+
+CC = c++
+CFLAGS =  -Wall -Wextra -Werror -std=c++98
 
 all: $(NAME)
 
-$(NAME): $(SRC)
-	$(CC) $(SRC) -o $(NAME)
+%.o: %.cpp
+	$(CC) $(CFLAGS) -Iinclude -c $< -o ${<:.cpp=.o}	
+
+$(NAME): $(OBJS)
+	$(CC) $(OBJS) -o $(NAME)
 
 clean:
-	rm -f $(NAME)
+	@rm -rf $(OBJS)
 
-fclean: clean
+fclean: clean 
+	@rm -f $(NAME)
+	
 
 re: fclean all
