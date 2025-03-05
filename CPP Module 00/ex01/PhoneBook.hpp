@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHONEBOOK_H
-# define PHONEBOOK_H
+#ifndef PHONEBOOK_HPP
+# define PHONEBOOK_HPP
 
 # include "Contact.hpp"
 
@@ -19,10 +19,12 @@ class PhoneBook
 {
 	public :
 		PhoneBook();
-		addContact();
-		searchContact();
+		~PhoneBook();
+		void		addContact();
+		void		search();
 	private:
-		Contact[8] contacts;
+		int			_nbr_Contacts;
+		Contact	_contacts[8];
 };
 
 #endif

@@ -10,22 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
+# include "PhoneBook.hpp"
 
 int	main(void)
 {
+	PhoneBook	phoneBook;
+
 	while (1)
 	{
 		std::string commandInput;
 		std::cout << "Enter a command: ";
 		std::cin >> commandInput;
 		if (commandInput == "EXIT")
-			break;
+			break ;
 		else if (commandInput == "ADD")
-			std::cout << "ADD" << std::endl;
+			phoneBook.addContact();
 		else if (commandInput == "SEARCH")
-			std::cout << "SEARCH" << std::endl;
+			phoneBook.search();
 		else
 			std::cout << "\tInvalid command" << std::endl;
 	}
+	return (0);
 }
