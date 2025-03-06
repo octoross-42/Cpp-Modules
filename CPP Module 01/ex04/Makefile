@@ -2,18 +2,13 @@ NAME = sed
 
 SRCS = main.cpp \
 
-OBJS = ${SRCS:.cpp=.o}
-
 CC = c++
 CFLAGS =  -Wall -Wextra -Werror -std=c++98
 
 all: $(NAME)
 
-%.o: %.cpp
-	$(CC) $(CFLAGS) -I./ -c $< -o ${<:.cpp=.o}	
-
-$(NAME): $(OBJS)
-	$(CC) $(OBJS) -o $(NAME)
+$(NAME):
+	$(CC) $(SRCS) -I./ -o $(NAME)
 
 clean:
 	@rm -rf $(OBJS)
