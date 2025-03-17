@@ -6,7 +6,7 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 16:56:23 by octoross          #+#    #+#             */
-/*   Updated: 2025/03/07 17:59:16 by octoross         ###   ########.fr       */
+/*   Updated: 2025/03/17 18:53:36 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	main(void)
 {
 	ClapTrap	p1;
 	ClapTrap	p2("Lana");
+	ClapTrap	p3;
 
 	p1.attack("Lana");
 	p2.takeDamage(5);
@@ -31,5 +32,5 @@ int	main(void)
 	p1.attack("Lana");
 	p1.attack("Lana");
 	p1.attack("Lana");
-	p2.attack("_");
+	p2.attack("default user");
 }

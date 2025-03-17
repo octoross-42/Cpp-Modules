@@ -6,15 +6,25 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 16:54:54 by octoross          #+#    #+#             */
-/*   Updated: 2025/03/07 18:00:46 by octoross         ###   ########.fr       */
+/*   Updated: 2025/03/17 18:53:03 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ClapTrap.hpp"
 
+int	ClapTrap::_nbr_traps = 0;
+
+#include <sstream>
+
 ClapTrap::ClapTrap(void)
 {
-	_name = "_";
+	_nbr_traps ++;
+
+
+	std::ostringstream oss;
+    oss << _nbr_traps;
+
+	_name = "default user " + oss.str();
 	_hitPoints = 10;
 	_eneryPoints = 10;
 	_attackDmg = 0;
@@ -23,6 +33,7 @@ ClapTrap::ClapTrap(void)
 
 ClapTrap::ClapTrap(std::string name)
 {
+	_nbr_traps ++;
 	_name = name;
 	_hitPoints = 10;
 	_eneryPoints = 10;

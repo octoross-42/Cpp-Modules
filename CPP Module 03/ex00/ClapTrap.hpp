@@ -6,7 +6,7 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 16:55:08 by octoross          #+#    #+#             */
-/*   Updated: 2025/03/07 17:51:56 by octoross         ###   ########.fr       */
+/*   Updated: 2025/03/17 15:52:27 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ class	ClapTrap
 		std::string	_name;
 		int	_eneryPoints;
 		int	_attackDmg;
+		static int	_nbr_traps;
 	public:
 		int	_hitPoints;
 		ClapTrap(void);
@@ -42,7 +43,6 @@ class	ClapTrap
 		void	attack(const std::string &target);
 		void	takeDamage(unsigned int amount);
 		void	beRepaired(unsigned int amount);
-		
 };
 
 #endif
