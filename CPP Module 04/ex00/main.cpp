@@ -6,7 +6,7 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 16:56:23 by octoross          #+#    #+#             */
-/*   Updated: 2025/03/18 14:57:15 by octoross         ###   ########.fr       */
+/*   Updated: 2025/03/18 16:17:42 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ int	main(void)
 	cat->makeSound();
 	dog->makeSound();
 	animal->makeSound();
+	delete animal;
+	delete dog;
+	delete cat;
 
 	std::cout << std::endl << "Now the wrong animals" << std::endl << std::endl;
 	const WrongAnimal* wrongAnimal = new WrongAnimal();
@@ -35,4 +38,7 @@ int	main(void)
 	wrongCat->makeSound();
 	wrongDog->makeSound();
 	wrongAnimal->makeSound();
+	delete wrongAnimal;
+	delete wrongCat;
+	delete wrongDog;
 }

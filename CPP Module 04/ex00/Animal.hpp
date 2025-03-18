@@ -33,7 +33,9 @@ class	Animal
 		std::string	_type;
 	public:
 		Animal(void);
-		~Animal(void);
+		Animal(const Animal &to_copy);
+		Animal&	operator= (const Animal &to_copy);
+		virtual ~Animal(void);
 
 		std::string	getType(void) const;
 		virtual void	makeSound(void) const;

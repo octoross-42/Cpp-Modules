@@ -6,7 +6,7 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 14:35:46 by octoross          #+#    #+#             */
-/*   Updated: 2025/03/18 14:50:23 by octoross         ###   ########.fr       */
+/*   Updated: 2025/03/18 16:17:25 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ class	Cat: public Animal
 	public:
         Cat(void);
 		~Cat(void);
+		Cat(const Cat &to_copy);
+		Cat&	operator= (const Cat &to_copy);
 
 		void    makeSound(void) const;
 };

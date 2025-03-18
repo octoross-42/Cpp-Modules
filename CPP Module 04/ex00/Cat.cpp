@@ -6,7 +6,7 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 14:38:26 by octoross          #+#    #+#             */
-/*   Updated: 2025/03/18 14:46:09 by octoross         ###   ########.fr       */
+/*   Updated: 2025/03/18 16:17:28 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,17 @@ Cat::~Cat(void)
 void	Cat::makeSound(void) const
 {
 	std::cout << "Meow" << std::endl;
+}
+
+Cat::Cat(const Cat &to_copy)
+{
+	_type = to_copy.getType();
+}
+
+Cat&	Cat::operator= (const Cat &to_copy)
+{
+	if (&to_copy == this)
+		return (*this);
+	_type = to_copy.getType();
+	return (*this);
 }
