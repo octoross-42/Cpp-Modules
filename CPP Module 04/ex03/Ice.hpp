@@ -18,16 +18,13 @@
 
 class Ice: public AMateria
 {
-    protected:
-        std::string _type;
     public:
         Ice(void);
-        Ice(std::string const & type);
+        Ice(std::string const &type);
         Ice(const Ice &to_copy);
         Ice    &operator= (const Ice &to_copy);
         ~Ice(void);
     
-        std::string const & getType() const;
         Ice* clone() const;
         void use(ICharacter& target);
 };

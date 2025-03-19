@@ -6,15 +6,16 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 20:04:43 by octoross          #+#    #+#             */
-/*   Updated: 2025/03/18 21:12:56 by octoross         ###   ########.fr       */
+/*   Updated: 2025/03/19 02:19:31 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Ice.hpp"
 
-Ice::Ice(void): _type("ice") {}
-Ice::Ice(std::string const & type): _type(type) {}
-Ice::Ice(const Ice &to_copy): _type(to_copy.getType()) {}
+
+Ice::Ice(void): AMateria("ice") {}
+Ice::Ice(std::string const &type): AMateria(type) {}
+Ice::Ice(const Ice &to_copy): AMateria(to_copy) {}
 Ice::~Ice(void) {}
 
 Ice    &Ice::operator= (const Ice &to_copy)
@@ -24,8 +25,6 @@ Ice    &Ice::operator= (const Ice &to_copy)
     _type = to_copy.getType();
     return (*this);
 }
-
-std::string const &Ice::getType() const { return _type; }
 
 Ice* Ice::clone() const
 {

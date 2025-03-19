@@ -6,7 +6,7 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 21:40:36 by octoross          #+#    #+#             */
-/*   Updated: 2025/03/18 22:07:45 by octoross         ###   ########.fr       */
+/*   Updated: 2025/03/19 02:39:55 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ MateriaSource::MateriaSource(const MateriaSource &to_copy)
     i = 0;
     while (i < _knowMatNbr)
     {
-        _knowMaterials[i] = to_copy.getMateria(i)->clone();
+        _knowMaterials[i] = to_copy.getCloneMateria(i);
         i ++;
     }
 }
@@ -48,7 +48,7 @@ MateriaSource   &MateriaSource::operator= (const MateriaSource &to_copy)
     i = 0;
     while (i < _knowMatNbr)
     {
-        _knowMaterials[i] = to_copy.getMateria(i)->clone();
+        _knowMaterials[i] = to_copy.getCloneMateria(i);
         i ++;
     }
     return (*this);
@@ -63,10 +63,21 @@ MateriaSource::~MateriaSource(void)
 
 int     MateriaSource::getNbrKnowMaterials(void) const { return _knowMatNbr; }
 
-const AMateria    *MateriaSource::getMateria(int i) const
+AMateria    *MateriaSource::getCloneMateria(int i) const
+{
+    if ((i < 0) || (i > 3))
+		return (NULL);
+
+	if (_knowMaterials[i])
+    	return (_knowMaterials[i]->clone());
+	return (NULL);
+}
+
+AMateria    *MateriaSource::getMateria(int i)
 {
     if ((i < 0) || (i > 3))
         return (NULL);
+
     return (_knowMaterials[i]);
 }
 

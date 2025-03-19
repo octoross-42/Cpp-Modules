@@ -6,7 +6,7 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 20:23:24 by octoross          #+#    #+#             */
-/*   Updated: 2025/03/18 21:17:13 by octoross         ###   ########.fr       */
+/*   Updated: 2025/03/19 02:41:44 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,12 @@ class Character: public ICharacter
         ~Character(void);
 
         std::string const &getName() const;
-        const AMateria    *getMateria(int i) const;
         void equip(AMateria* m);
         void unequip(int idx);
         void use(int idx, ICharacter& target);
+		void	printInventory(void);
+		AMateria	*getMateria(int i);
+        AMateria    *getCloneMateria(int i) const;
 };
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 21:18:50 by octoross          #+#    #+#             */
-/*   Updated: 2025/03/18 21:56:14 by octoross         ###   ########.fr       */
+/*   Updated: 2025/03/19 02:36:42 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ class   MateriaSource: public IMateriaSource
         virtual ~MateriaSource(void);
     
         int     getNbrKnowMaterials(void) const;
-        const AMateria    *getMateria(int i) const;
+        AMateria    *getCloneMateria(int i) const;
+		AMateria	*getMateria(int i);
         void    learnMateria(AMateria *mat);
         AMateria* createMateria(std::string const & type);
 };

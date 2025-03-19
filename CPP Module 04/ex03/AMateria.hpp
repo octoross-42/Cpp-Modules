@@ -6,7 +6,7 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 19:57:55 by octoross          #+#    #+#             */
-/*   Updated: 2025/03/18 21:12:25 by octoross         ###   ########.fr       */
+/*   Updated: 2025/03/19 02:10:12 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ class AMateria
         AMateria    &operator= (const AMateria &to_copy);
         virtual ~AMateria(void);
     
-        std::string const & getType() const;
+        std::string const &getType() const;
         virtual AMateria* clone() const = 0;
         virtual void use(ICharacter& target) = 0;
 };
