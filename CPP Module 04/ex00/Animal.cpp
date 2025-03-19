@@ -18,6 +18,12 @@ Animal::Animal(void)
 	std::cout << "Animal Default constructor has been called" << std::endl;
 }
 
+Animal::Animal(std::string type)
+{
+	_type = type;
+	std::cout << "Hello Animal " << _type << std::endl;
+}
+
 Animal::Animal(const Animal &to_copy)
 {
 	_type = to_copy.getType();

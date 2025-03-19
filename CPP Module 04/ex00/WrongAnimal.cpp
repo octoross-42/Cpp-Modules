@@ -18,6 +18,12 @@ WrongAnimal::WrongAnimal(void)
 	std::cout << "WrongAnimal Default constructor has been called" << std::endl;
 }
 
+WrongAnimal::WrongAnimal(std::string type)
+{
+	_type = type;
+	std::cout << "Hello WrongAnimal " << _type << std::endl;
+}
+
 WrongAnimal::~WrongAnimal(void)
 {
 	std::cout << "Bybye " << BOLD << YELLOW << _type << RESET << std::endl;

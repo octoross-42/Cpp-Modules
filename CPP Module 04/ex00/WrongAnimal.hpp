@@ -33,6 +33,7 @@ class	WrongAnimal
 		std::string	_type;
 	public:
 		WrongAnimal(void);
+		WrongAnimal(std::string type);
 		~WrongAnimal(void);
 
 		std::string	getType(void) const;
