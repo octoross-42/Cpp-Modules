@@ -6,7 +6,7 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 20:23:24 by octoross          #+#    #+#             */
-/*   Updated: 2025/03/19 02:42:02 by octoross         ###   ########.fr       */
+/*   Updated: 2025/03/19 17:46:02 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,10 @@ class ICharacter
         virtual void equip(AMateria* m) = 0;
         virtual void unequip(int idx) = 0;
         virtual void use(int idx, ICharacter& target) = 0;
+
+		// Only for better testing
 		virtual void	printInventory(void) = 0;
 		virtual AMateria	*getMateria(int i) = 0;
-        virtual AMateria    *getCloneMateria(int i) const = 0;
 };
 
 #endif

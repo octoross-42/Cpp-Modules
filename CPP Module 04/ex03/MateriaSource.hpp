@@ -6,7 +6,7 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 21:18:50 by octoross          #+#    #+#             */
-/*   Updated: 2025/03/19 02:36:42 by octoross         ###   ########.fr       */
+/*   Updated: 2025/03/19 17:36:56 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ class   MateriaSource: public IMateriaSource
         MateriaSource   &operator= (const MateriaSource &to_copy);
         virtual ~MateriaSource(void);
     
-        int     getNbrKnowMaterials(void) const;
-        AMateria    *getCloneMateria(int i) const;
+        void    	learnMateria(AMateria *mat);
+        AMateria* 	createMateria(std::string const & type);
+
+		// For better memory handling only
 		AMateria	*getMateria(int i);
-        void    learnMateria(AMateria *mat);
-        AMateria* createMateria(std::string const & type);
 };
 
 #endif

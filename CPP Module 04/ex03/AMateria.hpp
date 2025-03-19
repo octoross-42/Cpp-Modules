@@ -6,7 +6,7 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 19:57:55 by octoross          #+#    #+#             */
-/*   Updated: 2025/03/19 02:10:12 by octoross         ###   ########.fr       */
+/*   Updated: 2025/03/19 18:44:39 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 # define AMATERIA_HPP
 
 # include <iostream>
+
+# define MESSAGES 0
 
 # define RED "\033[0;31m"
 # define GREEN "\033[1;32m"
@@ -43,8 +45,9 @@ class AMateria
         virtual ~AMateria(void);
     
         std::string const &getType() const;
-        virtual AMateria* clone() const = 0;
-        virtual void use(ICharacter& target) = 0;
+		
+        virtual AMateria*	clone() const = 0;
+        virtual void 		use(ICharacter& target) = 0;
 };
 
 #endif

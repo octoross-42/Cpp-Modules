@@ -6,7 +6,7 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 20:35:42 by octoross          #+#    #+#             */
-/*   Updated: 2025/03/19 02:44:07 by octoross         ###   ########.fr       */
+/*   Updated: 2025/03/19 18:25:17 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 Character::Character(void)
 {
-    _name = "Default User";
+	if (MESSAGES > 1)
+		std::cout << "Default Character Constructor called" << std::endl;
+	_name = "Default User";
 	_inventory[0] = NULL;
 	_inventory[1] = NULL;
 	_inventory[2] = NULL;
@@ -24,6 +26,8 @@ Character::Character(void)
 Character::Character(std::string name)
 {
     _name = name;
+	if (MESSAGES > 1)
+		std::cout << "Hello Character " << YELLOW << BOLD << _name << RESET << "!" << std::endl;
 	_inventory[0] = NULL;
 	_inventory[1] = NULL;
 	_inventory[2] = NULL;
@@ -34,19 +38,14 @@ Character::Character(const Character &to_copy)
 {
 	if (this == &to_copy)
 		return ;
-
-    _name = to_copy.getName();
+	
+	if (MESSAGES > 1)
+		std::cout << YELLOW << BOLD << to_copy._name << RESET << " has beed copied" << RESET << std::endl;
+    _name = to_copy._name;
 	int i = 0;
 	while (i < 4)
 	{
-		if (_inventory[i])
-			delete _inventory[i];
-		i ++;
-	}
-	i = 0;
-	while (i < 4)
-	{
-		_inventory[i] = to_copy.getCloneMateria(i);
+		_inventory[i] = to_copy._inventory[i]->clone();
 		i ++;
 	}
 }
@@ -55,8 +54,10 @@ Character   &Character::operator= (const Character &to_copy)
 {
 	if (this == &to_copy)
 		return (*this);
-
-    _name = to_copy.getName();
+		
+	if (MESSAGES > 1)
+		std::cout << YELLOW << BOLD << _name << RESET << " has copied " << YELLOW << BOLD << to_copy._name << RESET << std::endl;
+    _name = to_copy._name;
 	int i = 0;
 	while (i < 4)
 	{
@@ -67,7 +68,7 @@ Character   &Character::operator= (const Character &to_copy)
 	i = 0;
 	while (i < 4)
 	{
-		_inventory[i] = to_copy.getCloneMateria(i);
+		_inventory[i] = to_copy._inventory[i]->clone();
 		i ++;
 	}
 	return (*this);
@@ -82,25 +83,11 @@ Character::~Character(void)
 			delete _inventory[i];
 		i ++;
 	}
+	if (MESSAGES > 1)
+		std::cout << "Bybye Character " << YELLOW << BOLD << _name << RESET << "!" << std::endl;
 }
 
 std::string const &Character::getName() const { return _name; }
-
-AMateria    *Character::getCloneMateria(int i) const
-{
-	if ((i < 0) || (i > 3))
-		return (NULL);
-	if (_inventory[i])
-		return (_inventory[i]->clone());
-	return (NULL);
-}
-
-AMateria	*Character::getMateria(int i)
-{
-	if ((i < 0) || (i > 3))
-		return (NULL);
-	return (_inventory[i]);
-}
 
 void Character::equip(AMateria* m)
 {
@@ -109,13 +96,15 @@ void Character::equip(AMateria* m)
 	{
 		if (!_inventory[i])
 		{
-			std::cout << YELLOW << BOLD << _name << RESET << " equips " << MAGENTA << BOLD << m->getType() << RESET << std::endl;
+			if (MESSAGES > 0)
+				std::cout << "\t" << YELLOW << BOLD << _name << RESET << " equips " << MAGENTA << BOLD << m->getType() << RESET << std::endl;
 			_inventory[i] = m;
 			return ;
 		}
 		i ++;
 	}
-	std::cout << YELLOW << BOLD << _name << RESET << " has no space room in inventor, cannot equip " << MAGENTA << BOLD << m->getType() << RESET << std::endl;
+	if (MESSAGES > 0)
+		std::cout << "\t" << YELLOW << BOLD << _name << RESET << " has no space room in inventor, cannot equip " << MAGENTA << BOLD << m->getType() << RESET << std::endl;
 }
 
 void Character::unequip(int idx)
@@ -124,12 +113,12 @@ void Character::unequip(int idx)
 		return ;
 	if (_inventory[idx])
 	{
-		std::cout << YELLOW << BOLD << _name << RESET << " has unequiped inventory " << BOLD << "[" << idx << "]" << RESET << ": " << MAGENTA << BOLD << _inventory[idx]->getType() << RESET << std::endl;
+		if (MESSAGES > 0)
+			std::cout << "\t" << YELLOW << BOLD << _name << RESET << " has unequiped inventory " << BOLD << "[" << idx << "]" << RESET << ": " << MAGENTA << BOLD << _inventory[idx]->getType() << RESET << std::endl;
 		_inventory[idx] = NULL;
 	}
-	else
-		std::cout << YELLOW << BOLD << _name << RESET << " has empty inventory at index " << BOLD << idx << RESET << ": cannot unequip" << std::endl;
-		
+	else if (MESSAGES > 0)
+		std::cout << "\t" YELLOW << BOLD << _name << RESET << " has empty inventory at index " << BOLD << idx << RESET << ": cannot unequip" << std::endl;
 }
 
 void Character::use(int idx, ICharacter& target)
@@ -138,7 +127,8 @@ void Character::use(int idx, ICharacter& target)
 		return ;
 	if (!_inventory[idx])
 	{
-		std::cout << YELLOW << BOLD << _name << RESET << " has empty inventory at index " << BOLD << idx << RESET << ": cannot use" << std::endl;
+		if (MESSAGES > 0)
+			std::cout << "\t" YELLOW << BOLD << _name << RESET << " has empty inventory at index " << BOLD << idx << RESET << ": cannot use" << std::endl;
 		return ;
 	}
 	_inventory[idx]->use(target);
@@ -160,4 +150,11 @@ void	Character::printInventory(void)
 	}
 	if (empty)
 		std::cout << "\t(empty)" << std::endl;
+}
+
+AMateria	*Character::getMateria(int i)
+{
+	if ((i < 0) || (i > 3))
+		return (NULL);
+	return (_inventory[i]);
 }
