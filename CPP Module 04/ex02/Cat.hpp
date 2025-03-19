@@ -6,7 +6,7 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 14:35:46 by octoross          #+#    #+#             */
-/*   Updated: 2025/03/18 17:23:04 by octoross         ###   ########.fr       */
+/*   Updated: 2025/03/19 19:14:10 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ class	Cat: public Animal
 {
 	private:
 		Brain	*_brain;
-	protected:
-		std::string	_type;
 	public:
         Cat(void);
 		~Cat(void);

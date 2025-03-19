@@ -6,16 +6,15 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 14:38:49 by octoross          #+#    #+#             */
-/*   Updated: 2025/03/18 17:23:37 by octoross         ###   ########.fr       */
+/*   Updated: 2025/03/19 19:15:56 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Dog.hpp"
 
-Dog::Dog(void)
+Dog::Dog(void): Animal("Dog")
 {
 	_brain = new Brain();
-	_type = "Dog";
 	std::cout << BOLD << GREEN << "Dog" << RESET << " Default constructor has been called" << std::endl;
 }
 
@@ -37,11 +36,10 @@ void	Dog::makeSound(void) const
 	std::cout << "Woaf Woaf" << std::endl;
 }
 
-Dog::Dog(const Dog &to_copy)
+Dog::Dog(const Dog &to_copy): Animal(to_copy._type)
 {
 	if (&to_copy == this)
 		return ;
-	_type = to_copy.getType();
 	_brain = new Brain();
 	int i = 0;
 	while (i < 100)
@@ -55,7 +53,7 @@ Dog&	Dog::operator= (const Dog &to_copy)
 {
 	if (&to_copy == this)
 		return (*this);
-	_type = to_copy.getType();
+	_type = to_copy._type;
 	_brain = new Brain();
 	int i = 0;
 	while (i < 100)

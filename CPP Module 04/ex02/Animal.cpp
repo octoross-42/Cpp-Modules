@@ -18,16 +18,22 @@ Animal::Animal(void)
 	std::cout << BOLD << "Animal" << RESET << " Default constructor has been called" << std::endl;
 }
 
+Animal::Animal(std::string type)
+{
+	_type = type;
+	std::cout << "Helllo Animal" << BOLD << _type << RESET << std::endl;
+}
+
 Animal::Animal(const Animal &to_copy)
 {
-	_type = to_copy.getType();
+	_type = to_copy._type;
 }
 
 Animal&	Animal::operator= (const Animal &to_copy)
 {
 	if (&to_copy == this)
 		return (*this);
-	_type = to_copy.getType();
+	_type = to_copy._type;
 	return (*this);
 }
 
