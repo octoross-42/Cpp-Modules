@@ -1,33 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Fixed.hpp                                          :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/06 17:52:02 by octoross          #+#    #+#             */
-/*   Updated: 2025/03/06 20:50:25 by octoross         ###   ########.fr       */
+/*   Created: 2025/03/06 17:59:24 by octoross          #+#    #+#             */
+/*   Updated: 2025/03/06 22:55:17 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FIXED_HPP
+#include "Point.hpp"
 
-# define FIXED_HPP
-
-# include <iostream>
-
-class   Fixed
+int main(int argc, char **argv)
 {
-    private:
-        int             _fixed_value;
-        static const int   _nbr_fract_bits;
-    public:
-        Fixed(void);
-        ~Fixed(void);
-        Fixed(const Fixed &to_copy);
-        Fixed &operator= (const Fixed &to_copy);
-        int getRawBits(void) const;
-        void    setRawBits(int const raw);
-};
+    const Point a;
+    const Point b(3, 0);
+    const Point c(0, 3);
 
-#endif
+    if (argc > 2)
+    {
+        const Point point(atoi(argv[1]), atoi(argv[2]));
+        std::cout << bsp(a, b, c, point) << std::endl;
+    } 
+    else
+    {
+        const Point point(1, 1.5);
+        std::cout << bsp(a, b, c, point) << std::endl;
+    }
+    return (0);
+}

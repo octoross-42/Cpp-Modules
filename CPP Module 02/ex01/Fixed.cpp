@@ -6,7 +6,7 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 18:29:40 by octoross          #+#    #+#             */
-/*   Updated: 2025/03/06 19:02:59 by octoross         ###   ########.fr       */
+/*   Updated: 2025/03/06 21:04:10 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ Fixed::Fixed(const float value)
 {
     std::cout << "Float Constructor called";
     std::cout << std::endl;
-    _fixed_value = roundf(value << _nbr_fract_bits);
+    _fixed_value = roundf(value * ( 1 << _nbr_fract_bits));
 }
 
 Fixed::~Fixed(void)
@@ -46,7 +46,21 @@ Fixed::Fixed(const Fixed &to_copy)
     _fixed_value = to_copy.getRawBits();
 }
 
-Fixed  &Fixed::operator= (Fixed &to_copy)
+float Fixed::toFloat(void) const
+{
+    // std::cout << "Convert to float called";
+    // std::cout << std::endl;
+    return (((float)_fixed_value) /(1 << _nbr_fract_bits));
+}
+
+int Fixed::toInt(void) const
+{
+    // std::cout << "Convert to int called";
+    // std::cout << std::endl;
+    return (_fixed_value >> _nbr_fract_bits);
+}
+
+Fixed  &Fixed::operator= (const Fixed &to_copy)
 {
     std::cout << "Copy assignment constructor called";
     std::cout << std::endl;
@@ -69,15 +83,8 @@ void    Fixed::setRawBits(int const raw)
     _fixed_value = raw;
 }
 
-float toFloat(void) const
+std::ostream &operator<<(std::ostream &output, Fixed const &f)
 {
-    std::cout << "Convert to float called";
-    std::cout << std::endl;
-    return (_fixed_value)
-}
-
-int toInt(void) const
-{
-    std::cout << "Convert to int called";
-    std::cout << std::endl;   
+    output << f.toFloat();
+    return (output);
 }

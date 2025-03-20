@@ -6,7 +6,7 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 18:29:40 by octoross          #+#    #+#             */
-/*   Updated: 2025/03/06 18:53:22 by octoross         ###   ########.fr       */
+/*   Updated: 2025/03/06 20:50:15 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ Fixed::Fixed(const Fixed &to_copy)
     _fixed_value = to_copy.getRawBits();
 }
 
-Fixed  &Fixed::operator= (Fixed &to_copy)
+Fixed  &Fixed::operator= (const Fixed &to_copy)
 {
     std::cout << "Copy assignment constructor called";
     std::cout << std::endl;
