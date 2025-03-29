@@ -6,7 +6,7 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 16:18:31 by octoross          #+#    #+#             */
-/*   Updated: 2025/03/29 20:55:18 by octoross         ###   ########.fr       */
+/*   Updated: 2025/03/29 22:12:51 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	write_entry(std::string entry_name, std::ofstream &outfile, bool is_dir, in
 	int i = 0;
 	while (i < depth + 1)
 	{
-		if ((i == depth))
+		if (i == depth)
 		{
 			if (is_last)
 				outfile << "└── ";
