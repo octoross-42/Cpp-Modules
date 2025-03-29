@@ -6,7 +6,7 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 01:44:44 by octoross          #+#    #+#             */
-/*   Updated: 2025/03/29 03:30:51 by octoross         ###   ########.fr       */
+/*   Updated: 2025/03/29 17:52:34 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	PresidentialPardonForm::execute(Bureaucrat const &executor) const
 	}
 	catch (std::exception &e)
 	{
-		std::cout << e.what() << std::endl;
 		throw ;
 	}
 }
