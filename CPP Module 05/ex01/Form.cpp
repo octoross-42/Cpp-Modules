@@ -6,7 +6,7 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 18:06:02 by octoross          #+#    #+#             */
-/*   Updated: 2025/03/29 02:22:58 by octoross         ###   ########.fr       */
+/*   Updated: 2025/03/30 01:49:48 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ const std::string	Form::getName(void) const { return (_name); }
 int 				Form::getSignGrade(void) const { return (_signGrade); }
 int 				Form::getExecuteGrade(void) const { return (_executeGrade); }
 
-void	Form::setExecuteGrade(int grade)
+void	Form::setSignGrade(int grade)
 {
 	if (grade < 1)
 		throw GradeTooLowException();
@@ -44,7 +44,7 @@ void	Form::setExecuteGrade(int grade)
 		_signGrade = grade;
 }
 
-void	Form::setSignGrade(int grade)
+void	Form::setExecuteGrade(int grade)
 {
 	if (grade < 1)
 		throw GradeTooLowException();
