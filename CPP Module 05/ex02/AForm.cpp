@@ -34,7 +34,7 @@ const std::string	AForm::getName(void) const { return (_name); }
 int 				AForm::getSignGrade(void) const { return (_signGrade); }
 int 				AForm::getExecuteGrade(void) const { return (_executeGrade); }
 
-void	AForm::setExecuteGrade(int grade)
+void	AForm::setSignGrade(int grade)
 {
 	if (grade < 1)
 		throw GradeTooLowException();
@@ -44,7 +44,7 @@ void	AForm::setExecuteGrade(int grade)
 		_signGrade = grade;
 }
 
-void	AForm::setSignGrade(int grade)
+void	AForm::setExecuteGrade(int grade)
 {
 	if (grade < 1)
 		throw GradeTooLowException();
@@ -65,10 +65,7 @@ void	AForm::beSigned(const Bureaucrat &bureaucrat)
 void	AForm::checkExecutionRights(Bureaucrat const &executor) const
 {
 	if (!_signed)
-	{
-		std::cout << "popopopo"<< std::endl;
 		throw NotSignedException();
-	}
 	else if (executor.getGrade() > _executeGrade)
 		throw GradeTooLowException();
 }
