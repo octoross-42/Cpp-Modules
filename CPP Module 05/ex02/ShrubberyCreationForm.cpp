@@ -6,14 +6,14 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 16:18:31 by octoross          #+#    #+#             */
-/*   Updated: 2025/03/29 22:12:51 by octoross         ###   ########.fr       */
+/*   Updated: 2025/03/30 01:34:01 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ShrubberyCreationForm.hpp"
 
-ShrubberyCreationForm::ShrubberyCreationForm(void): AForm("Shrubbery Creation Form", 25, 5), _target("unknow") {}
-ShrubberyCreationForm::ShrubberyCreationForm(std::string target): AForm("Shrubbery Creation Form", 25, 5), _target(target) {}
+ShrubberyCreationForm::ShrubberyCreationForm(void): AForm("Shrubbery Creation Form", 145, 137), _target("unknow") {}
+ShrubberyCreationForm::ShrubberyCreationForm(std::string target): AForm("Shrubbery Creation Form", 145, 137), _target(target) {}
 ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &to_copy): AForm(to_copy), _target(to_copy._target) {}
 ShrubberyCreationForm &ShrubberyCreationForm::operator= (const ShrubberyCreationForm &to_copy)
 {

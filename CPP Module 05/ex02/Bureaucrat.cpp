@@ -6,7 +6,7 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 17:27:10 by octoross          #+#    #+#             */
-/*   Updated: 2025/03/29 02:29:44 by octoross         ###   ########.fr       */
+/*   Updated: 2025/03/30 01:46:10 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,20 @@ void	Bureaucrat::signForm(AForm &form) const
 		std::cerr << BGREEN << _name << RESET << " (" << BGREEN << _grade << RESET << ") couldn't sign " << BYELLOW << form.getName() << RESET << " (" << BYELLOW << form.getSignGrade() << RESET << ") because " << e.what() << std::endl;
 	}
 	
+}
+
+void	Bureaucrat::executeForm(AForm const &form)
+{
+	try
+	{
+		form.execute(*this);
+		std::cout << BGREEN << _name << RESET << " successfully executed " << BYELLOW << form.getName() << RESET << std::endl;
+	
+	}
+	catch (std::exception &e)
+	{
+		std::cerr << BGREEN << _name << RESET << " (" << BGREEN << _grade << RESET << ") couldn't execute " << BYELLOW << form.getName() << RESET << " (" << BYELLOW << form.getExecuteGrade() << RESET << ") because " << e.what() << std::endl;
+	}
 }
 
 const char *Bureaucrat::GradeTooHighException::what(void) const throw() { return ("Bureaucrat grade too high"); }

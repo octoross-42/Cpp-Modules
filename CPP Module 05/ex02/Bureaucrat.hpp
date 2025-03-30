@@ -6,7 +6,7 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 15:26:28 by octoross          #+#    #+#             */
-/*   Updated: 2025/03/29 18:58:31 by octoross         ###   ########.fr       */
+/*   Updated: 2025/03/30 01:24:29 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@
 # define BCYAN "\x1B[1m\033[0;36m"
 # define BMAGENTA "\x1B[1m\033[0;35m"
 
-# define BGBLACK "\033[40m"   // Black background
-# define BGRED "\033[41m"   // Red background
-# define BGGREEN "\033[42m"   // Green background
-# define BGYELLOW "\033[43m"   // Yellow background
-# define BGBLUE "\033[44m"   // Blue background
-# define BGMAGENTA "\033[45m"   // Magenta background
-# define BGCYAN "\033[46m"   // Cyan background
-# define BGWHITE "\033[47m"   // White background
+# define BGBLACK "\033[40m"
+# define BGRED "\033[41m"
+# define BGGREEN "\033[42m"
+# define BGYELLOW "\033[43m"
+# define BGBLUE "\033[44m"
+# define BGMAGENTA "\033[45m"
+# define BGCYAN "\033[46m"
+# define BGWHITE "\033[47m"
 
 # define BOLD "\x1B[1m"
 # define UNDERLINE "\x1B[4m"
