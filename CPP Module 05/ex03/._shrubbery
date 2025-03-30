@@ -1,0 +1,27 @@
+[42m.[0m
+├── [1m[1;32m._shrubbery[0m
+├── [1m[1;32mAForm.cpp[0m
+├── [1m[1;32mAForm.hpp[0m
+├── [1m[1;32mAForm.o[0m
+├── [1m[1;32mBureaucrat.cpp[0m
+├── [1m[1;32mBureaucrat.hpp[0m
+├── [1m[1;32mBureaucrat.o[0m
+├── [1m[1;32mform[0m
+├── [1m[1;32mIntern.cpp[0m
+├── [1m[1;32mIntern.hpp[0m
+├── [1m[1;32mIntern.o[0m
+├── [1m[1;32mmain.cpp[0m
+├── [1m[1;32mmain.o[0m
+├── [1m[1;32mMakefile[0m
+├── [1m[1;32mPresidentialPardonForm.cpp[0m
+├── [1m[1;32mPresidentialPardonForm.hpp[0m
+├── [1m[1;32mPresidentialPardonForm.o[0m
+├── [1m[1;32mRobotomyRequestForm.cpp[0m
+├── [1m[1;32mRobotomyRequestForm.hpp[0m
+├── [1m[1;32mRobotomyRequestForm.o[0m
+├── [1m[1;32msd_shrubbery[0m
+├── [1m[1;32mShrubberyCreationForm.cpp[0m
+├── [1m[1;32mShrubberyCreationForm.hpp[0m
+└── [1m[1;32mShrubberyCreationForm.o[0m
+
+1 directories, 24 files
