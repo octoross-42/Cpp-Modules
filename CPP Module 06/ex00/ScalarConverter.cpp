@@ -6,7 +6,7 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 07:31:20 by octoross          #+#    #+#             */
-/*   Updated: 2025/04/14 01:45:37 by octoross         ###   ########.fr       */
+/*   Updated: 2025/04/15 21:04:02 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,26 @@ void	ScalarConverter::printInvalid(std::string str)
 
 void	ScalarConverter::pseudoLiterals(std::string literal)
 {
-	// float	floatLimit = std::numeric_limits<float>::infinity();
-	// int		intLimit = std::numeric_limits<int>::infinity();
-	
-	(void)literal;
-	
+	std::cout << BOLD << "ScalarConverter" << RESET << " for \'" << BYELLOW << literal << RESET << "\'" << std::endl;		
+	std::cout << BGREEN << "\tchar   " << RESET << "impossible" << std::endl;
+	std::cout << BGREEN << "\tint    " << RESET << "impossible" << std::endl;
+
+	float floatInf = std::numeric_limits<float>::infinity();
+	double doubleInf = std::numeric_limits<double>::infinity();
+	if (literal[0] == 'n')
+	{
+		std::cout << BGREEN << "\tfloat  " << RESET << "nanf" << std::endl;
+		std::cout << BGREEN << "\tdouble " << RESET << "nan" << std::endl;
+	}
+	else
+	{
+		int sign = (literal[0] == '+') ? 1 : -1;
+		std::cout << BGREEN << "\tfloat  " << RESET << sign * floatInf << std::endl;
+		if (literal.length() == 4)
+			std::cout << BGREEN << "\tdouble " << RESET << sign * doubleInf << std::endl;
+		else
+			std::cout << BGREEN << "\tdouble " << RESET << sign * floatInf << std::endl;
+	}
 }
 
 void	ScalarConverter::printChar(long double finalValue) // has to be conversion of int of char (:())
@@ -226,7 +241,7 @@ t_scalar	*ScalarConverter::getScalar(std::string literal)
 }
 
 void	ScalarConverter::convert(std::string literal)
-{	
+{
 	if ((literal == "nan") || (literal == "nanf")
 		|| (literal == "+inf") || (literal == "-inf")
 		|| (literal == "+inff") || (literal == "-inff"))
