@@ -6,7 +6,7 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 07:31:20 by octoross          #+#    #+#             */
-/*   Updated: 2025/04/15 21:04:02 by octoross         ###   ########.fr       */
+/*   Updated: 2025/04/15 21:36:41 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	ScalarConverter::pseudoLiterals(std::string literal)
 	}
 }
 
-void	ScalarConverter::printChar(long double finalValue) // has to be conversion of int of char (:())
+void	ScalarConverter::printChar(long double finalValue)
 {
 	if ((finalValue > CHAR_MAX) || (finalValue < CHAR_MIN))
 		std::cout << BRED << "\tchar   " << RESET << "impossible" << std::endl;
