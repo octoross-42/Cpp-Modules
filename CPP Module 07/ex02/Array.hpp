@@ -26,6 +26,7 @@ template <typename T> class Array
 
 		Array(size_t n) : _array(new T[n]), _size(n)
 		{
+			std::cout << n << std::endl;
 			for (size_t i = 0; i < n; ++i)
 				_array[i] = T(0);
 		}
