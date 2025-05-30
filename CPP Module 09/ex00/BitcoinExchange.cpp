@@ -239,7 +239,11 @@ void	BitcoinExchange::readFile(const std::string &file_type, const std::string &
 	
 	if (!file.is_open())
 	{
-		std::cerr << ERROR_OPEN_INPUT(file_name) << ": " << strerror(errno) << std::endl;
+		if (file_type == "database")
+			throw std::runtime_error(ERROR_OPEN_DB(file_name, strerror(errno)));
+		else
+			std::cerr << ERROR_OPEN_INPUT(file_name, strerror(errno)) << std::endl;
+
 		return ;
 	}
 

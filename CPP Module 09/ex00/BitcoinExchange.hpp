@@ -37,15 +37,15 @@
 # define BR "\033[1;0m"
 
 # ifndef DB_NAME
-#  define DB_NAME "data.csv"
+#  define DB_NAME "daqsdhqsj"
 # endif
 
 # ifndef SHOW_ERROR
 #  define SHOW_ERROR true
 # endif
 
-# define ERROR_OPEN_DB(file_name) std::string(BRED) + "Error: " + R + "could not open database file: " + B + file_name + R
-# define ERROR_OPEN_INPUT(input_name) std::string(BRED) + "Error: " + R + "could not open input file: " + B + input_name + R
+# define ERROR_OPEN_DB(file_name, reason) std::string(BRED) + "Error: " + R + "could not open database file: " + B + file_name + R + ": " + I + reason + R
+# define ERROR_OPEN_INPUT(input_name, reason) std::string(BRED) + "Error: " + R + "could not open input file: " + B + input_name + R + ": " + I + reason + R
 
 # define ERROR_LINE(file_type, file_name, line, line_nbr, reason) std::string(BRED) + "\tError " + file_type + " format: " + R + B + file_name + R + ": \"" + I + line + R + '"' + " (line " + stringOfType(line_nbr) + "): " + B + reason + R
 # define ERROR_YMDDATE(file_type, file_name, date, line_nbr) ERROR_LINE(file_type, file_name, date, line_nbr, "has wrong Year-Month-Day date format")
