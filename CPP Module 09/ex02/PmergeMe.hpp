@@ -5,16 +5,19 @@
 # include <iostream>
 # include <vector>
 # include <list>
+# include <deque>
+# include <iterator>
 # include <sstream>
+# include <algorithm>
 
 // vector
-// deque -> pas d'accès à index pas approprié
-// list
+// deque
+// list -> pas de random accès 
 
 // set / multiset / map / multimap -> trie quand insertion, pas pertinent
 // stack /queue -> pas pratique
 
-# define SHOW_CONTAINERS true
+# define SHOW_CONTAINERS false
 
 # define B "\033[1m"
 # define R "\033[0m"
@@ -36,6 +39,6 @@ T	typeOfString(const std::string &str, const std::string &type)
 }
 
 void	mergeWithVector(const std::list<int> &list);
-void	mergeWithList(const std::list<int> &list);
+void	mergeWithDeque(const std::list<int> &list);
 
 #endif

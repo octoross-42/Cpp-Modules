@@ -1,13 +1,6 @@
 #include "PMergeMe.hpp"
 
 
-double getCPUTime(void)
-{
-    timespec ts;
-    clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &ts);
-    return (ts.tv_sec * 1000.0 + ts.tv_nsec / 1000000.0);
-}
-
 double getRealTime(void)
 {
     timespec ts;
@@ -15,21 +8,21 @@ double getRealTime(void)
     return (ts.tv_sec * 1000.0 + ts.tv_nsec / 1000000.0);
 }
 
-void	update_time(double *time_real, double *time_cpu)
+void	update_time(double *time_real)
 {
 	*time_real = getRealTime();
-	*time_cpu = getCPUTime();
 }
 
-void	print_time(double *time_real, double *time_cpu)
+void	print_time(double *time_real)
 {
-	std::cout << std::endl << B << "\t⤷ CPU time: " << R << (double)((getCPUTime() - *time_cpu) * 1000.0) / (double)CLOCKS_PER_SEC << " ms" << std::endl;
-	std::cout << B << "\t⤷ Real time: " << R << (double)(getRealTime() - *time_real) << " ms" << std::endl << std::endl;
+	std::cout << B << (double)(getRealTime() - *time_real) << " ms" << R << std::endl;
 }
 
 
 int	main(int argc, char **argv)
 {
+	if (argc < 2)
+		return (1);
 	try
 	{
 		std::list<int> list;
@@ -76,20 +69,20 @@ int	main(int argc, char **argv)
 				std::cout << " ";
 			it ++;
 		}
-		std::cout << std::endl << std::endl;
+		std::cout << std::endl;
 
-		double time_real, time_cpu;
+		double time_real;
 		
-		update_time(&time_real, &time_cpu);
+		update_time(&time_real);
 		mergeWithVector(list);
-		std::cout << "Time to process a range of " << B << list.size() << R << " elmts with std::vector<int> : ";
-		print_time(&time_real, &time_cpu);
+		std::cout << "Time to process a range of " << B << list.size() << R << " elmts with std::" << B << "vector" << R << "<int> : ";
+		print_time(&time_real);
 		
 		
-		update_time(&time_real, &time_cpu);
-		mergeWithList(list);
-		std::cout << "Time to process a range of " << B << list.size() << R << " elmts with std::list<int> : ";
-		print_time(&time_real, &time_cpu);
+		update_time(&time_real);
+		mergeWithDeque(list);
+		std::cout << "Time to process a range of " << B << list.size() << R << " elmts with std::" << B << "deque" << R << "<int> : ";
+		print_time(&time_real);
 
 	}
 	catch (std::exception &e)
