@@ -37,12 +37,26 @@
 # define BR "\033[1;0m"
 
 # ifndef DB_NAME
-#  define DB_NAME "daqsdhqsj"
+#  define DB_NAME "dataError.csv"
 # endif
 
 # ifndef SHOW_ERROR
 #  define SHOW_ERROR true
 # endif
+
+typedef struct YMD_date_s
+{
+	int year;
+	int month;
+	int day;
+	
+	bool operator<(const struct YMD_date_s& other) const
+	{
+        if (year != other.year) return (year < other.year);
+        if (month != other.month) return (month < other.month);
+        return (day < other.day);
+    }
+}	YMD_date_t;
 
 # define ERROR_OPEN_DB(file_name, reason) std::string(BRED) + "Error: " + R + "could not open database file: " + B + file_name + R + ": " + I + reason + R
 # define ERROR_OPEN_INPUT(input_name, reason) std::string(BRED) + "Error: " + R + "could not open input file: " + B + input_name + R + ": " + I + reason + R
@@ -50,10 +64,15 @@
 # define ERROR_LINE(file_type, file_name, line, line_nbr, reason) std::string(BRED) + "\tError " + file_type + " format: " + R + B + file_name + R + ": \"" + I + line + R + '"' + " (line " + stringOfType(line_nbr) + "): " + B + reason + R
 # define ERROR_YMDDATE(file_type, file_name, date, line_nbr) ERROR_LINE(file_type, file_name, date, line_nbr, "has wrong Year-Month-Day date format")
 # define ERROR_IMPOSSIBLE_YMDDATE(file_type, file_name, date, line_nbr) ERROR_LINE(file_type, file_name, date, line_nbr, "has impossible date")
+# define ERROR_WRONG_YMDDATE(file_type, file_name, date, line_nbr) ERROR_LINE(file_type, file_name, date, line_nbr, "has incorrect date")
 # define ERROR_WRONG_EXCHANGE_RATE(file_name, input, line_nbr) ERROR_LINE("database", file_name, input, line_nbr, "has incorrect exchange_rate value")
 # define ERROR_WRONG_INPUT(input_file, input, line_nbr) ERROR_LINE("input", input_file, input, line_nbr, "has incorrect value")
 # define ERROR_DB_ALREADY(file_name, date, line_nbr) ERROR_LINE("database", file_name, date, line_nbr, "date is a duplicate")
 # define ERROR_PRINT(file_type, file_name, ascii_nbr, line_nbr) std::string(BRED) + "\tError " + file_type + ": " + R + B + file_name + R + ": line " + stringOfType(line_nbr) + ": contains unprintable characters (ascii: " + stringOfType(ascii_nbr) +  ") and can't be handled"
+
+# define SHOW_INPUT(db_value, date, value) date + " | " + stringOfType<float>(value) + R + " x " + stringOfType<double>(db_value) + " = " + B + stringOfType<double>(value * db_value) + R
+# define SHOW_DB_DATE(db_date) I + "\t(" + db_date + ")" + R 
+# define SHOW_CLOSEST_INPUT(db_date, db_value, date, value) SHOW_INPUT(db_value, date, value) + SHOW_DB_DATE(db_date)
 
 template <typename T>
 T	typeOfString(const std::string &str, const std::string &type)
@@ -79,28 +98,30 @@ std::string	stringOfType(const T &value)
     return (oss.str());
 }
 
-
 class BitcoinExchange
 {
 	private:
-		std::map<std::string, double>	_db;
+		std::map<YMD_date_t, double>	_db;
 		std::string	_db_name;
 
-		void	loadDatabase(const std::string &db_name) { readFile("database", db_name); };
+		void		loadDatabase(const std::string &db_name) { readFile("database", db_name); };
 
-		bool 	isLeapYear(int year);
-		int		getDaysInMonth(int year, unsigned int month);
-		void	checkYMDDate(const std::string &file_type, const std::string &file_name,const std::string &date, size_t line_nbr);
-		double	dbValue(const std::string &valueStr, const size_t line_nbr);
-		float	inputValue(const std::string &input_name, const std::string &valueStr, const size_t line_nbr);
-		bool	isDbHeader(const std::string &date, const std::string &valueStr);
-		bool	isInputHeader(const std::string &date, const std::string &valueStr);
+		bool 		isLeapYear(int year);
+		int			getDaysInMonth(int year, unsigned int month);
 		
-		void	splitLine(const std::string &file_type, const std::string &file_name, const std::string &line, char spliter, const size_t line_nbr, std::string &first, std::string &second);
-		void	handleDbLine(const std::string &line, const size_t line_nbr);
-		void	handleInputLine(const std::string &input_name, const std::string &line, const size_t line_nbr);
+		YMD_date_t	YMDDate(int year, int month, int day);
+		std::string formatedDate(YMD_date_t date);
+		YMD_date_t	checkYMDDate(const std::string &file_type, const std::string &file_name, const std::string &date, size_t line_nbr);
+		double		dbValue(const std::string &valueStr, const size_t line_nbr);
+		float		inputValue(const std::string &input_name, const std::string &valueStr, const size_t line_nbr);
+		bool		isDbHeader(const std::string &date, const std::string &valueStr);
+		bool		isInputHeader(const std::string &date, const std::string &valueStr);
+		
+		void		splitLine(const std::string &file_type, const std::string &file_name, const std::string &line, char spliter, const size_t line_nbr, std::string &first, std::string &second);
+		void		handleDbLine(const std::string &line, const size_t line_nbr);
+		void		handleInputLine(const std::string &input_name, const std::string &line, const size_t line_nbr);
 
-		void	readFile(const std::string &file_type, const std::string &file_name);
+		void		readFile(const std::string &file_type, const std::string &file_name);
 
 	public:
 		BitcoinExchange(void): _db_name(DB_NAME) { loadDatabase(DB_NAME); }

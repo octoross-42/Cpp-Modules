@@ -35,7 +35,7 @@ void	BitcoinExchange::splitLine(const std::string &file_type, const std::string 
 		while (line[i] == ' ')
 			i ++;
 		if (line[i] != spliter)
-			throw std::runtime_error(ERROR_LINE(file_type, file_name, line, line_nbr, "no separation detected"));
+			throw std::runtime_error(ERROR_LINE(file_type, file_name, line, line_nbr, "no " + spliter + "separator detected after first word"));
 	}
 	i ++;
 	while (line[i] == ' ')
@@ -106,7 +106,28 @@ int	BitcoinExchange::getDaysInMonth(int year, unsigned int month)
     return (31);
 }
 
-void	BitcoinExchange::checkYMDDate(const std::string &file_type, const std::string &file_name, const std::string &date, const size_t line_nbr)
+YMD_date_t	BitcoinExchange::YMDDate(int year, int month, int day)
+{
+	YMD_date_t date;
+	date.year = year;
+	date.month = month;
+	date.day = day;
+	return (date);
+}
+
+std::string BitcoinExchange::formatedDate(YMD_date_t date)
+{
+	std::string dateString = stringOfType<int>(date.year) + "-";
+	if (date.month < 10)
+		dateString += "0";
+	dateString += stringOfType<int>(date.month) + "-";
+	if (date.day < 10)
+		dateString += "0";
+	dateString += stringOfType<int>(date.day);
+	return (dateString);
+}
+
+YMD_date_t	BitcoinExchange::checkYMDDate(const std::string &file_type, const std::string &file_name, const std::string &date, const size_t line_nbr)
 {
 	(void)file_name;
 	size_t i = 0;
@@ -120,7 +141,7 @@ void	BitcoinExchange::checkYMDDate(const std::string &file_type, const std::stri
 	}
 	catch (std::exception &e)
 	{
-		throw std::runtime_error(ERROR_IMPOSSIBLE_YMDDATE(file_type, file_name, date, line_nbr));
+		throw std::runtime_error(ERROR_WRONG_YMDDATE(file_type, file_name, date, line_nbr));
 	}
 
 	if (i == date.length())
@@ -140,7 +161,7 @@ void	BitcoinExchange::checkYMDDate(const std::string &file_type, const std::stri
 	}
 	catch (std::exception &e)
 	{
-		throw std::runtime_error(ERROR_IMPOSSIBLE_YMDDATE(file_type, file_name, date, line_nbr));
+		throw std::runtime_error(ERROR_WRONG_YMDDATE(file_type, file_name, date, line_nbr));
 	}
 	
 	if ((month < 1) || (month > 12))
@@ -153,13 +174,14 @@ void	BitcoinExchange::checkYMDDate(const std::string &file_type, const std::stri
 	}
 	catch (std::exception &e)
 	{
-		throw std::runtime_error(ERROR_IMPOSSIBLE_YMDDATE(file_type, file_name, date, line_nbr));
+		throw std::runtime_error(ERROR_WRONG_YMDDATE(file_type, file_name, date, line_nbr));
 	}
 
 	int max_day = getDaysInMonth(year, month);
 
 	if ((day < 1) || (day > max_day))
 		throw std::runtime_error(ERROR_IMPOSSIBLE_YMDDATE(file_type, file_name, date, line_nbr));
+	return (YMDDate(year, month, day));
 
 }
 
@@ -167,15 +189,16 @@ void	BitcoinExchange::handleDbLine(const std::string &line, const size_t line_nb
 {
 	std::string date;
 	std::string valueStr;
+	YMD_date_t YMDDate;
 
 	splitLine("database", _db_name, line, ',', line_nbr, date, valueStr);
 	if ((line_nbr == 1) && isDbHeader(date, valueStr))
 		return ;
-	checkYMDDate("database", _db_name, date, line_nbr);
+	YMDDate = checkYMDDate("database", _db_name, date, line_nbr);
 	double value = dbValue(valueStr, line_nbr);
-	if (_db.find(date) != _db.end())
-		throw std::runtime_error(ERROR_DB_ALREADY(_db_name, date, line_nbr));
-	_db[date] = value;
+	if (_db.find(YMDDate) != _db.end())
+		throw std::runtime_error(ERROR_DB_ALREADY(_db_name, formatedDate(YMDDate), line_nbr));
+	_db[YMDDate] = value;
 }
 
 
@@ -183,21 +206,30 @@ void	BitcoinExchange::handleInputLine(const std::string &input_name, const std::
 {
 	std::string date;
 	std::string valueStr;
+	YMD_date_t YMDDate;
 
 	splitLine("input", input_name, line, '|', line_nbr, date, valueStr);
 	if ((line_nbr == 1) && isInputHeader(date, valueStr))
 		return ;
-	checkYMDDate("input", input_name, date, line_nbr);
+	YMDDate = checkYMDDate("input", input_name, date, line_nbr);
 	float value = inputValue(input_name, valueStr, line_nbr);
-	std::map<std::string, double>::iterator it = _db.find(date);
-	if (it != _db.end())
+	if (_db.size() == 0)
 	{
-		std::cout << "\t" << BGREEN << it->first << " | " << value << R << " x " << it->second << " = " << B << value * it->second << R << std::endl;
+		std::cout << "\t" << BGREEN << formatedDate(YMDDate) << " | " << value << R \
+				<< ": database is " << B << "empty" << R << std::endl;
 		return ;
 	}
-	if (date < _db.begin()->first)
+	std::map<YMD_date_t, double>::iterator it = _db.find(YMDDate);
+	if (it != _db.end())
 	{
-		std::cout << "\t" << BGREEN << date << " | " << value << R << " x " << _db.begin()->second << " = " << B << value * _db.begin()->second << R << I << "\t(" << _db.begin()->first << ")" << R << std::endl;
+		std::cout << "\t" << BGREEN << SHOW_INPUT(it->second, formatedDate(YMDDate), value) << std::endl;
+		return ;
+	}
+	if (YMDDate < _db.begin()->first)
+	{
+		std::cout << "\t" << BYELLOW << "Warning: " << R \
+			<< I << "date provided is before first database input: " << R \
+			<< B << SHOW_CLOSEST_INPUT(formatedDate(_db.begin()->first), _db.begin()->second, formatedDate(YMDDate), value) << std::endl;
 		return ;
 	}
 
@@ -205,16 +237,16 @@ void	BitcoinExchange::handleInputLine(const std::string &input_name, const std::
 	it ++;
 	while (it != _db.end())
 	{
-		if (it->first > date)
+		if (YMDDate < it->first)
 		{
 			it --;
-			std::cout << "\t" << BGREEN << date << " | " << value << R << " x " << it->second << " = " << B << value * it->second << R << I << "\t(" << it->first << ")" << R << std::endl;
+			std::cout << "\t" << BGREEN << SHOW_CLOSEST_INPUT(formatedDate(it->first), it->second, formatedDate(YMDDate), value) << std::endl;
 			return ;
 		}
 		it ++;
 	}
 	it --;
-	std::cout << "\t" << BGREEN << date << " | " << value << R << " x " << it->second << " = " << B << value * it->second << R << I << "\t(" << it->first << ")" << R << std::endl;
+	std::cout << "\t" << BGREEN << SHOW_CLOSEST_INPUT(formatedDate(it->first), it->second, formatedDate(YMDDate), value) << std::endl;
 }
 
 std::string	repeat_string(const std::string &str, unsigned int n)
@@ -248,39 +280,46 @@ void	BitcoinExchange::readFile(const std::string &file_type, const std::string &
 	}
 
 	if (file_type == "database")
-		std::cout << "╔══ Loading " << BBLUE << "database" << R << " ... ══════════════════════════════════════════════════════════════════════════════╗" << R << std::endl;
+		std::cout << "╔══ Loading " << BBLUE << "database" << R << " ... " << repeat_string("═", 92) << "╗" << R << std::endl;
 	else
-		std::cout << std::endl << "╔══ " << BCYAN << file_name << R << " " + repeat_string("═", 98 - file_name.length()) + "╗" << std::endl;
+		std::cout << std::endl << "╔══ " << BCYAN << file_name << R << " " + repeat_string("═", 112 - file_name.length()) + "╗" << std::endl;
 	
 	std::string	line;
-	size_t	line_nbr = 1;
+	size_t	line_nbr = 0;
 	while (std::getline(file, line))
 	{
 		line.erase(std::remove(line.begin(), line.end(), '\r'), line.end()); // fichier windows -> \r\n donc on enlève le \r pour comptabilité
-		if (line.empty())
-			continue;
+		
+		line_nbr ++;
 		size_t i = 0;
+		int start = -1;
 		while (i < line.length())
 		{
+			if ((start == -1) && (line[i] != ' '))
+				start = i;
 			if (!std::isprint(static_cast<unsigned char>(line[i])))
 			{
 				if (file_type == "database")
-					std::cerr << ERROR_PRINT("database", _db_name, (int)line[i], line_nbr ++) << std::endl;
+					std::cerr << ERROR_PRINT("database", _db_name, (int)line[i], line_nbr) << std::endl;
 				else
-					std::cerr << ERROR_PRINT("input", file_name, (int)line[i], line_nbr ++) << std::endl;
+					std::cerr << ERROR_PRINT("input", file_name, (int)line[i], line_nbr) << std::endl;
 				break;
 			}
 			i ++;
 		}
+		if (start > 0)
+			line = line.substr(start);
+		if (line.empty())
+			continue;
 		if ((i < line.length()) && !std::isprint(static_cast<unsigned char>(line[i])))
 			continue;
 
 		try
 		{
 			if (file_type == "database")
-				handleDbLine(line, line_nbr ++);
+				handleDbLine(line, line_nbr);
 			else
-				handleInputLine(file_name, line, line_nbr ++);
+				handleInputLine(file_name, line, line_nbr);
 		}
 		catch (std::exception &e)
 		{
@@ -291,7 +330,8 @@ void	BitcoinExchange::readFile(const std::string &file_type, const std::string &
 	}
 	file.close();
 	if (file_type == "database")
-		std::cout << "╚══ ⤷ " << BBLUE << "database" << R << " loaded !" << "═════════════════════════════════════════════════════════════════════════════╝" << std::endl;
+		std::cout << "╚══ ⤷ " << BBLUE << "database" << R << " loaded !" << repeat_string("═", 94) << "╝" << std::endl;
+
 	else
-		std::cout << "╚══ " << BCYAN << file_name << R << " over🌟 " + repeat_string("═", 91 - file_name.length()) + "╝" << std::endl;
+		std::cout << "╚══ " << BCYAN << file_name << R << " over🌟 " + repeat_string("═", 105 - file_name.length()) + "╝" << std::endl;
 }
