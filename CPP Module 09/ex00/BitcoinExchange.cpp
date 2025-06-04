@@ -35,7 +35,7 @@ void	BitcoinExchange::splitLine(const std::string &file_type, const std::string 
 		while (line[i] == ' ')
 			i ++;
 		if (line[i] != spliter)
-			throw std::runtime_error(ERROR_LINE(file_type, file_name, line, line_nbr, "no " + spliter + "separator detected after first word"));
+			throw std::runtime_error(ERROR_LINE(file_type, file_name, line, line_nbr, "no " + spliter + " separator detected after first word"));
 	}
 	i ++;
 	while (line[i] == ' ')
