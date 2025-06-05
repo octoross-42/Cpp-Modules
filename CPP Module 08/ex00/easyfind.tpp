@@ -6,7 +6,7 @@
 /*   By: octoross <octoross@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 23:40:12 by octoross          #+#    #+#             */
-/*   Updated: 2025/05/27 22:23:22 by octoross         ###   ########.fr       */
+/*   Updated: 2025/06/05 15:42:37 by octoross         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,23 +49,23 @@ typename T::iterator easyfind(T& container, int value){
     return easyfind_specialisation(container, value, has_find_prototype<T>());
 }
 
-int	*easyfind(std::stack<int> stack, int value)
+int	*easyfind(std::stack<int> &stack, int value)
 {
 	while (!stack.empty())
 	{
 		if (stack.top() == value)
-			return (&stack.top());
+			return (&(stack.top()));
 		stack.pop();
 	}
 	return (NULL);
 }
 
-int	*easyfind(std::queue<int> queue, int value)
+int	*easyfind(std::queue<int> &queue, int value)
 {
 	while (!queue.empty())
 	{
 		if (queue.front() == value)
-			return (&queue.front());
+			return (&(queue.front()));
 		queue.pop();
 	}
 	return (NULL);
