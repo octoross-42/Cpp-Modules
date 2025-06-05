@@ -87,7 +87,7 @@ unsigned int Span::longestSpan(void) const
 
 std::ostream& operator<<(std::ostream& os, const Span &span)
 {
-	typename std::vector<int>::const_iterator it = span.begin();
+	std::vector<int>::const_iterator it = span.begin();
 	os << "[ ";
 	while (it != span.end())
 	{
