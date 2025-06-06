@@ -4,7 +4,8 @@
 double getRealTime(void)
 {
     timespec ts;
-    clock_gettime(CLOCK_MONOTONIC, &ts);
+    if (clock_gettime(CLOCK_MONOTONIC, &ts) == -1)
+		return (-42);
     return (ts.tv_sec * 1000.0 + ts.tv_nsec / 1000000.0);
 }
 
